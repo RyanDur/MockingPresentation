@@ -35,41 +35,16 @@ public class ContactManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-
-    /**
-     * deletes Test .txt data between tests
-     */
-    private void deleteTestData() {
-        if (new File("contacts.txt").exists()) {
-            new File("contacts.txt").deleteOnExit();
-        }
-    }
-
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-
-        deleteTestData();
-
         IdGenerator idgen = new MockIdGeneratorImpl();
 
         dm = new DataManagerImpl();
         cm = new ContactManagerImpl(idgen, dm);
         date = Calendar.getInstance();
-    }
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @After
-    public void tearDown() throws Exception {
-
-        deleteTestData();
-
-        cm = null;
-        date = null;
     }
 
     @Test
@@ -223,8 +198,8 @@ public class ContactManagerTest {
         thrown.expect(IllegalArgumentException.class);
 
         Set<Contact> contacts = new HashSet<>();
-        Contact jonny = new ContactImpl("jonny", 0);
-        contacts.add(jonny);
+        //Contact jonny = new ContactImpl("jonny", 0);
+        //contacts.add(jonny);
 
         cm.addNewPastMeeting(contacts, date, notes);
     }
@@ -364,15 +339,15 @@ public class ContactManagerTest {
 
         //create a sorted PastMeeting list
         List<Meeting> meetingsOrdered = new ArrayList<>();
-        PastMeeting meet1 = new PastMeetingImpl(contacts, pastest, 1, "pastest");
-        PastMeeting meet2 = new PastMeetingImpl(contacts, past, 2, "past");
-        PastMeeting meet3 = new PastMeetingImpl(contacts, future, 3, "future");
-        PastMeeting meet4 = new PastMeetingImpl(contacts, futurest, 4, "futurest");
+//        PastMeeting meet1 = new PastMeetingImpl(contacts, pastest, 1, "pastest");
+//        PastMeeting meet2 = new PastMeetingImpl(contacts, past, 2, "past");
+//        PastMeeting meet3 = new PastMeetingImpl(contacts, future, 3, "future");
+//        PastMeeting meet4 = new PastMeetingImpl(contacts, futurest, 4, "futurest");
 
-        meetingsOrdered.add(meet1);
-        meetingsOrdered.add(meet2);
-        meetingsOrdered.add(meet3);
-        meetingsOrdered.add(meet4);
+//        meetingsOrdered.add(meet1);
+//        meetingsOrdered.add(meet2);
+//        meetingsOrdered.add(meet3);
+//        meetingsOrdered.add(meet4);
 
         List<PastMeeting> pastMeetingList = cm.getPastMeetingList(contactjim);
         PastMeeting actual = pastMeetingList.toArray(new PastMeeting[pastMeetingList.size()])[0];
@@ -388,8 +363,8 @@ public class ContactManagerTest {
     public void getPastMeetingListException() throws IllegalArgumentException {
         thrown.expect(IllegalArgumentException.class);
 
-        Contact bob = new ContactImpl("Bob", 0);
-        cm.getPastMeetingList(bob);
+//        Contact bob = new ContactImpl("Bob", 0);
+//        cm.getPastMeetingList(bob);
     }
 
     @Test
@@ -419,8 +394,8 @@ public class ContactManagerTest {
     public void getFutureMeetingListException() throws IllegalArgumentException {
         thrown.expect(IllegalArgumentException.class);
 
-        Contact bob = new ContactImpl("Bob", 0);
-        cm.getFutureMeetingList(bob);
+//        Contact bob = new ContactImpl("Bob", 0);
+//        cm.getFutureMeetingList(bob);
     }
 
     @Test
