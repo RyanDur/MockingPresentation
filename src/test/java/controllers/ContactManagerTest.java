@@ -4,14 +4,12 @@
 package controllers;
 
 import models.*;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import util.*;
 
-import java.io.File;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -30,7 +28,7 @@ public class ContactManagerTest {
     String notes = "Some notes";
     Calendar date;
     ContactManager cm;
-    DataManager dm;
+    DataManager dataManager;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -40,16 +38,15 @@ public class ContactManagerTest {
      */
     @Before
     public void setUp() throws Exception {
-        IdGenerator idgen = new MockIdGeneratorImpl();
+        IdGenerator idGenerator = new MockIdGeneratorImpl();
 
-        dm = new DataManagerImpl();
-        cm = new ContactManagerImpl(idgen, dm);
+        dataManager = new DataManagerImpl();
+        cm = new ContactManagerImpl(idGenerator, dataManager);
         date = Calendar.getInstance();
     }
 
     @Test
     public void addNewContact() {
-
         cm.addNewContact(name, notes);
         Set<Contact> contactSet = cm.getContacts(name);
 
@@ -220,9 +217,7 @@ public class ContactManagerTest {
      */
     @Test
     public void testGetMeeting() throws EmptyContactException {
-
         Calendar dateCalendar = new GregorianCalendar();
-
 
         cm.addNewContact("Jim", "notes");
         cm.addNewContact("Jim", "Some notes");
